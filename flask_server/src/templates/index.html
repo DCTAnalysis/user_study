@@ -1,0 +1,58 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+Domain experiment
+{% endblock %}
+
+{% block page_specific_stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='/css/index.css') }}">
+{% endblock %}
+
+{% block page_specific_scripts %}
+<script src="{{ url_for('static', filename='/scripts/index.js') }}"></script>
+{% endblock %}
+
+{% block progress_intro %}<i class="fas fa-arrow-circle-right"></i>{% endblock %}
+
+{% block content %}
+    <h1 id="heading">Introduction</h1>
+    <div id="content_container">
+        <div id="disclaimer_text">
+            <div id="introduction">
+                <p>
+                    <b>General</b><br>
+                    YOUR INFO HERE
+                </p>
+                <p>
+                    <b>Purpose</b><br>
+                    In this study, we want to examine so-called phishing attacks.
+                    Phishing is the attempt to obtain sensitive pieces of information.
+                    For example, you receive an e-mail stating that you have to log in to your Amazon account to prevent it from being permanently deleted.
+                    The e-mail contains a link to a website that looks similar to the actual Amazon login website.
+                    However, when you enter your login details on this website, you do not log into your Amazon account, but your credentials get stolen.
+                </p>
+
+                <p>
+                    One way to identify such fake websites is by their domain.
+                    A domain is the "name" of a website that tells your Internet browser where to go, e.g., www.amazon.com takes you to Amazon's American website.
+                    Cyber criminals often use similar domains (e.g., www.amaz<b>e</b>n.com) to lure victims on websites under the cyber criminals' control and steal the victim's credentials.
+                    This survey aims at understanding how trustworthy humans rate fake domains.
+                    We will also ask you to create fake domains to understand how humans create these.
+                    Note that all created domains are only used in the context of this scientific study and are not used in real-world phishing attacks.
+                </p>
+            </div>
+            <div class="hidden" id="continue_to_consent">
+                <a class="hover_highlight_color button" href="/consent/user_id/{{user_id}}"><i class="fas fa-forward" aria-hidden="true"></i> Continue to consent</a>
+            </div>
+        </div>
+        <div class="hidden" id="mobile_device_message">
+            If you see this message and do not see the continue link, you are using a mobile device. You cannot participate with a mobile device in this survey.
+        </div>
+        <noscript>
+            <div id="noscript_message">
+                If you see this message and do not see the continue link, your browser does not support javascript or you have turned it of. You cannot participate in the survey.
+            </div>
+        </noscript>
+        <div class="hidden" id="user_id">{{user_id}}</div>
+    </div>
+{% endblock %}

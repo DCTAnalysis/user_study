@@ -1,0 +1,10 @@
+#noscript_message {
+	margin-top: 1em;
+	color: #D2222D;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+#mobile_device_message {
+	color: #D2222D;
+}

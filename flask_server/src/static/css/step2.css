@@ -1,0 +1,139 @@
+#graphical_illustration {
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+
+#graphical_illustration p {
+    width: 100%;
+}
+
+.illustration {
+    width: 32%;
+    height: 15%;
+    padding: 5px;
+    padding-top: 10px;
+} 
+
+.instructions_contrainer {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* description text */
+.instructions_contrainer > div:first-child > p:first-child {
+    margin-block-start: 0.1em;
+}
+
+.instructions_contrainer > div:first-child > ul:first-child {
+    margin-block-start: 0.1em;
+}
+/* Do not attempt to do this using classes */
+
+/* Image + instructions side by side */
+div.instructions_contrainer > div:first-child {
+    width: 60%;
+}
+
+div.instructions_contrainer > div:nth-child(2) {
+    width: 40%;
+}
+
+.description {
+    margin-bottom: 2em;
+}
+
+#change_notice {
+    font-size: 1.1em;
+    padding-top: 2ex;
+}
+
+#selected_domain {
+    font-size: 1.2em;
+}
+
+#domain_selection {
+    margin-top: 4em;
+    font-size: 1.3em;
+}
+
+#wrong_tld_selection_button {
+    background-color: white;
+    color: black;
+    border: 0.5px solid black;
+    margin: 0.5em;
+    padding: 0.5em;
+    border-radius: 20px;
+    font-size: 1em;
+}
+#wrong_tld_selection_button:hover {
+    background-color: var(--maim-highlight-color);
+}
+
+#dropdown_wrapper_wrong_tld {
+    position: relative;
+    display: inline-block;
+}
+
+#dropdown_content_wrong_tld {
+    position: absolute;
+    min-width: 160px;
+    z-index: 1;
+    border: 0.5px solid black;
+    background-color: white;
+    margin-left: 0.5em;
+}
+
+#dropdown_content_wrong_tld a {
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 0.5em;
+}
+
+#squatting_technique_selection {
+    display: block;
+}
+
+#typosquatting_techniques div {
+    text-decoration: none;
+    border: 0.5px solid black;
+    display: inline-block;
+}
+
+#dropdown_content_wrong_tld a:hover {
+    background-color: var(--maim-highlight-color);
+    color: white;
+    padding: 0.5em;
+}
+
+.small_method_button_inside > div {
+    /*text-decoration: none;*/
+    display: inline-block;
+    border: 0.5px solid black;
+}
+
+.div_inside_hover_highlight_color > div:hover {
+    background-color: var(--maim-highlight-color);
+    color: white;
+}
+
+.method_button {
+    display: inline-block;
+    padding: 1em;
+    text-align: center;
+    margin: 1em;
+    border: 0.5px solid black;
+    border-radius: 25px;
+    width: 100px;
+}
+
+
+.unselected {
+    color: black;
+}
+
+.letter {
+    margin-top: 0.5em;
+    padding: 0.5em;
+    border-radius: 20px;
+}

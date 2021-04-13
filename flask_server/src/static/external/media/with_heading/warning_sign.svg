@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 174 139" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,-243.603,-175.868)">
+        <g transform="matrix(1,0,0,1,70.5674,-17.293)">
+            <path d="M251.032,211.478C252.932,208.479 256.235,206.661 259.785,206.661C263.336,206.661 266.639,208.479 268.539,211.478C283.744,235.479 314.981,284.784 331.406,310.709C333.538,314.076 333.67,318.336 331.748,321.828C329.827,325.319 326.158,327.488 322.173,327.488C290.445,327.488 228.697,327.488 197.135,327.488C193.203,327.488 189.582,325.348 187.686,321.902C185.79,318.457 185.92,314.253 188.025,310.931C204.411,285.066 235.783,235.547 251.032,211.478Z" style="fill:rgb(235,235,235);fill-opacity:0;stroke:black;stroke-width:9px;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,4.92007,-11.6117)">
+            <text x="314.752px" y="300px" style="font-family:'FiraSans-Black', 'Fira Sans Black', sans-serif;font-weight:900;font-size:88.512px;">!</text>
+        </g>
+    </g>
+</svg>

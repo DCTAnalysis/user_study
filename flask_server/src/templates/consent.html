@@ -1,0 +1,56 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+Informant consent
+{% endblock %}
+
+{% block page_specific_stylesheet %}
+{% endblock %}
+
+{% block page_specific_scripts %}
+{% endblock %}
+
+{% block progress_consent %}<i class="fas fa-arrow-circle-right"></i>{% endblock %}
+
+{% block content %}
+    <h1 id="heading">Informant consent</h1>
+    <div id="content_container">
+        <div id="disclaimer_text">
+            <div id="disclaimer">
+                <p>
+                    <b>Participation requirements</b><br>
+                    Participants who are at least <b>18 years old</b> are eligible to participate.
+                </p>
+                <p>
+                    <b>Procedure</b><br>
+                    Participants have to perform some experiments in which they evaluate and create domains.
+                    In the last part, participants may answer some demographic questions and questions about their security awareness.
+                </p>
+                <p>
+                    <b>Data Privacy</b><br>
+                    In this survey you will be asked to answer some personal questions about your age, gender and education level.
+                    Additionally, we collect information about the device you are using and the time it takes to complete the survey and answer the questions.
+                    The responses will be stored together with a unique, pseudonymous user ID that is not associated with any identifying information (we do not ask for your name or contact data).
+                    YOUR INFORMATION HERE
+                </p>
+                <p>
+                    <b>Voluntary Participation</b><br>
+                    Your participation in this research is voluntary.
+                    You may discontinue participation at any time during the research.
+                </p>
+                <p>
+                    <b>Right to Ask Questions and Contact Information</b><br>
+                    YOUR INFORMATION HERE
+                    Also contact this e-mail address with any requests regarding your privacy rights including the objecting to processing, deletion of data and access to the data stored about you.
+                    Please note that we might require additional information to re-identify the data set that contains your information.
+                </p>
+                <div id="agreement_text">
+                    <i class="fas fa-exclamation-circle"></i> <b>By clicking the button below, you confirm that you are at least 18 years old, have read and understand the previous information, and want to participate in this research study.</b>
+                </div>
+                <div id="continue_to_step1">
+                    <a class="hover_highlight_color button" href="/step1/user_id/{{user_id}}"><i class="fas fa-forward" aria-hidden="true"></i> Agree & continue to step 1</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

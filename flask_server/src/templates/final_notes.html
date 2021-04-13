@@ -1,0 +1,87 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+Final notes
+{% endblock %}
+
+{% block page_specific_stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='/css/final_notes.css') }}">
+{% endblock %}
+
+{% block page_specific_scripts %}
+<script src="{{ url_for('static', filename='/scripts/final_notes.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <h1>Final notes</h1>
+
+    <div id="content_container">
+        <p>
+            Thank you for participating in this experiment.
+            Please use the following completion code at Mechanical Turk to show that you finished the survey and redeem your credits:
+            <br>
+            <br>
+            {% if completion_code == "-1" %}
+                <span class="red"><i class="fas fa-exclamation-circle"></i> You did not finish all experiments! <i class="fas fa-exclamation-circle"></i></span>
+                <br>
+                Please finish the following experiments first:
+                <br>
+                <div id="unfinished_experiments">
+                    {% if finished_step1 == "0" %}
+                        <a class="button" href="/step1/user_id/{{user_id}}">Step 1</a>
+                    {% endif %}
+                    {% if finished_step2 == "0" %}
+                        <a class="button" href="/step2/user_id/{{user_id}}">Step 2</a>
+                    {% endif %}
+                    {% if finished_step3 == "0" %}
+                        <a class="button" href="/step3/user_id/{{user_id}}">Step 3</a>
+                    {% endif %}
+                    {% if finished_step4 == "0" %}
+                        <a class="button" href="/step4/user_id/{{user_id}}">Step 4</a>
+                    {% endif %}
+                    {% if finished_step5 == "0" %}
+                        <a class="button" href="/step5/user_id/{{user_id}}">Step 5</a>
+                    {% endif %}
+                    {% if finished_questionnaire == "0" %}
+                        <a class="button" href="/questionnaire/user_id/{{user_id}}">Questionnaire</a>
+                    {% endif %}
+                </div>
+            {% else %}
+                <b>{{completion_code}}</b>
+                <br>
+                <br>
+                You can now leave the page or close the browser. In case you have feedback, you can use the form below (max. 500 characters, no special characters other than . and , allowed).
+    
+                {% if has_provided_feedback == False %}
+                    <div id="feedback_wrapper">
+                        <textarea cols=50 rows=10 id="feedback"></textarea>
+                        <br><br>
+                        <a id="send_feedback" class="hover_highlight_color button" href="#/">Send feedback</a>
+                    </div>
+        
+                    <div id="server_error">
+                        <p>
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span id="server_error_message"></span>
+                            <i class="fas fa-exclamation-circle"></i>
+                        </p>
+                    </div>
+        
+                    <div class="hidden" id="server_success">
+                        <p>
+                            Thank you for your feedback!
+                        </p>
+                    </div>
+                {% else %}
+                    <div>
+                        <p>
+                            You already provided feedback!
+                        </p>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </p>
+    
+        <div class="hidden" id="user_id">{{user_id}}</div>
+    </div>
+{% endblock %}

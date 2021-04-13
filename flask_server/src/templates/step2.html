@@ -1,0 +1,321 @@
+{% extends "base_template_steps.html" %}
+
+{% block title %}
+Step 2 - Create Maliciously Looking Domains Guided
+{% endblock %}
+
+{% block page_specific_stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='/css/step2.css') }}">
+{% endblock %}
+
+{% block step_specific_scripts %}
+<script src="{{ url_for('static', filename='/scripts/step2.js') }}"></script>
+{% endblock %}
+
+{% block progress_step2 %}<i class="fas fa-arrow-circle-right"></i>{% endblock %}
+
+{% block headline %}
+Step 2 - Create Maliciously Looking Domains Guided
+{% endblock %}
+
+{% block instructions %}
+        <p>
+        Similarly to the previous step, we ask you again to create convincing fake domains for ten given well-known domains.
+        In contrast to the previous step, we provide common techniques used by cyber criminals you can use to create your domains.
+        </p>
+
+{% endblock %}
+
+{% block counter_label %}10 domains created{% endblock %}
+
+{% block experiment %}
+Click on one of the following techniques to get started - <b>you can change at any time!</b>:
+
+    <div id="graphical_illustration" class="flex_center">
+            <img class="illustration" id="homograph_desc" src="{{ url_for('static', filename='/external/media/with_heading/homographic.svg') }}"></img>
+            <img class="illustration" id="combosquatting_desc" src="{{ url_for('static', filename='/external/media/with_heading/combosquatting.svg') }}"></img>
+            <img class="illustration" id="subdomain_usage_desc" src="{{ url_for('static', filename='/external/media/with_heading/subdomain.svg') }}"></img>
+            <img class="illustration" id="wrong_tld_desc" src="{{ url_for('static', filename='/external/media/with_heading/wrongtopleveldomain.svg') }}"></img>
+            <img class="illustration" id="typosquatting_desc" src="{{ url_for('static', filename='/external/media/with_heading/typosquatting.svg') }}"></img>
+    </div>
+
+    <div class="hidden" id="domain_selection">
+        Please imitate the following domain: <span id="selected_domain"></span>
+    </div>
+
+    <div id="squatting_techniques_wrapper">
+        <div class="hidden small_margin_top" id="typosquatting">
+            <h2>Typosquatting</h2>
+            <div class="description">
+                The domain has a typing error, e.g., e<span class="red">x</span>xample.com instead of example.com.
+            </div>
+
+            <div class="flex_center instructions_contrainer">
+                <div>
+                    <div class="tiny_margin_top" id="typosquatting_technique_selection">
+                        <p>Select a typosquatting technique you would like to use:</p>
+                        <div class="div_inside_hover_highlight_color " id="typosquatting_techniques">
+                            <div class="unselected label" href="#/">Prepend www</div>
+                            <div class="unselected label" href="#/">Omit character</div>
+                            <div class="unselected label" href="#/">Swap characters</div>
+                            <div class="unselected label" href="#/">Replace qwerty</div>
+                            <div class="unselected label" href="#/">Duplicate character</div>
+                        </div>
+                    </div>
+                                
+                    <div id="typosquatting_techniques_wrapper">
+                        <div class="hidden tiny_margin_top" id="prepend_www">
+                            <div class="description">
+                                Prepend www: missing dot between www and domain, e.g., <span class="red">www</span>example.com.
+                            </div>
+                                        
+                            <p>You will create: <span id="prepend_www_created_domain"></span></p>
+                                        
+                            <a class="hover_highlight_color button" id="next_domain_prepend_www" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Click to create this domain</a>
+                        </div>
+                        
+                        <div class="hidden tiny_margin_top" id="omit_character">
+                            <div class="description">
+                                Omit character: omit a character, e.g., eample.com.
+                            </div>
+                                        
+                            <p>Select a character to remove:</p>
+                            <div class="tiny_margin_top div_inside_hover_highlight_color small_method_button_inside" id="omit_character_domain_letters"></div>
+                                        
+                            <div class="hidden tiny_margin_top" id="omit_character_success">
+                                <p>You will create: <span id="omit_character_created_domain"></span></p>
+                                <a class="hover_highlight_color button" id="next_domain_omit_character" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Click to create this domain</a>
+                            </div>
+                        </div>
+                        
+                        <div class="hidden tiny_margin_top" id="swap_characters">
+                            <div class="description">
+                                Swap characters: swap two neighboring characters, e.g., e<span class="red">ax</span>mple.com.
+                            </div>
+
+                            <p>Select a character to swap with its right neighbor (swapping the last character is equal to swapping the second to last character):</p>
+                            <div class="tiny_margin_top div_inside_hover_highlight_color small_method_button_inside" id="swap_characters_domain_letters"></div>
+                                        
+                            <div class="hidden tiny_margin_top" id="swap_characters_success">
+                                <p>You will create: <span id="swap_characters_created_domain"></span></p>
+                                <a class="hover_highlight_color button" id="next_domain_swap_characters" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Click to create this domain</a>
+                            </div>
+                        </div>
+                        
+                        <div class="hidden tiny_margin_top" id="replace_qwerty">
+                            <div class="description">
+                                Replace qwerty: replace a character with a neighboring character on a qwerty keyboard, e.g., ex<span class="red">s</span>mple.com.
+                            </div>
+                                        
+                            <p>Select a character to replace:</p>
+                            <div class="tiny_margin_top div_inside_hover_highlight_color small_method_button_inside" id="replace_qwerty_domain_letters"></div>
+                            <div class="div_inside_hover_highlight_color small_method_button_inside" id="qwerty_replacements"></div>
+                                        
+                            <div class="hidden tiny_margin_top" id="replace_qwerty_success">
+                                <p>You will create: <span id="replace_qwerty_created_domain"></span></p>
+                                <a class="hover_highlight_color button" id="next_domain_replace_qwerty" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Click to create this domain</a>
+                            </div>
+                        </div>
+                        
+                        <div class="hidden tiny_margin_top" id="duplicate_character">
+                            <div class="description">
+                                Duplicate character: duplicate a character, e.g., e<span class="red">x</span>xample.com.
+                            </div>
+                                      
+                            <p>Select a character to duplicate:</p>
+                            <div class="tiny_margin_top div_inside_hover_highlight_color small_method_button_inside" id="duplicate_character_domain_letters"></div>
+                                      
+                            <div class="hidden tiny_margin_top" id="duplicate_character_success">
+                                <p>You will create: <span id="duplicate_character_created_domain"></span></p>
+                                <a class="hover_highlight_color button" id="next_domain_duplicate_character" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Click to create this domain</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <img src="{{ url_for('static', filename='/external/media/without_heading/typosquatting.svg') }}"></img>
+                </div>
+
+            </div>
+        </div>
+            
+        <div class="hidden small_margin_top" id="combosquatting">
+            <h2>Combosquatting</h2>
+            <div class="description">
+                The domain has random characters or suitable words in front of and/or behind the domain, e.g., <span class="red">login-</span>example.com.
+            </div>
+                        
+            <div class="flex_center instructions_contrainer">
+                <div>
+                    <ul class="instructions">
+                        <li> <i class="fas fa-random"></i> adds random characters before/behind the domain.</li>
+                        <li> <i class="fas fa-book"></i> adds a suitable word before/behind the domain.</li>
+                        <li> <i class="fas fa-ban"></i> does not add characters/words before/behind the domain.</li>
+                    </ul>
+                                
+                    <div id="create_combosquatting_domain_before">
+                        <b>Before the domain</b>
+                        <br>
+                        <div class="method_button hover_highlight_color" id="chars_before">
+                            <i class="fas fa-random"></i><br>Characters
+                        </div>
+                        <div class="method_button hover_highlight_color" id="terms_before">
+                            <i class="fas fa-book"></i><br>Words
+                        </div>
+                        <div class="method_button hover_highlight_color" id="none_before">
+                            <i class="fas fa-ban"></i><br>None
+                        </div>
+                    </div>
+                                
+                    <div class="hidden" id="create_combosquatting_domain_behind">
+                        <b>Behind the domain</b>
+                        <br>
+                        <div class="method_button hover_highlight_color" id="chars_behind">
+                            <i class="fas fa-random"></i><br>Characters
+                        </div>
+                        <div class="method_button hover_highlight_color" id="terms_behind">
+                            <i class="fas fa-book"></i><br>Words
+                        </div>
+                        <div class="method_button hover_highlight_color" id="none_behind">
+                            <i class="fas fa-ban"></i><br>None
+                        </div>
+                    </div>
+
+                    <div class="hidden tiny_margin_top" id="combosquatting_error">
+                        <p><i class="fas fa-exclamation-circle"></i> You cannot select none for both before and behind the domain <i class="fas fa-exclamation-circle"></i></p>
+                    </div>
+                                
+                    <div class="hidden tiny_margin_top" id="combosquatting_success">
+                        <p>You will create: <span id="combosquatting_created_domain"></span></p>
+                                
+                        <a class="hover_highlight_color button" id="next_domain_combosquatting" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Click to create this domain</a>
+                    </div>
+                </div>
+
+                <div>
+                    <img src="{{ url_for('static', filename='/external/media/without_heading/combosquatting.svg') }}"></img>
+                </div>
+            </div>
+        </div>
+            
+        <div class="hidden small_margin_top" id="subdomain_usage">
+            <h2>Subdomain</h2>
+            <div class="description">
+                The domain is a subdomain of another, unsuspiciously looking, domain, e.g., example.com<span class="red">.another-domain.com</span>. 
+            </div>
+                        
+            <div class="flex_center instructions_contrainer">
+                <div>
+                    We automatically add test-domain.com as a subdomain. 
+                    You may additonally add: </br>
+                    <ul>
+                        <li><i class="fas fa-random"></i> adds random characters before/behind the domain.</li>
+                        <li><i class="fas fa-book"></i> adds a suitable word before/behind the domain.</li>
+                        <li><i class="fas fa-ban"></i> does not add characters/words before/behind the domain.</li>
+                    </ul>
+
+                    <div id="create_subdomain_before">
+                        <b>Before the domain</b>
+                        <br>
+                        <div class="hover_highlight_color method_button" id="subdomain_chars_before">
+                            <i class="fas fa-random"></i><br>Characters
+                        </div>
+                        <div class="hover_highlight_color method_button" id="subdomain_terms_before">
+                            <i class="fas fa-book"></i><br>Words
+                        </div>
+                        <div class="hover_highlight_color method_button" id="subdomain_none_before">
+                            <i class="fas fa-ban"></i><br>None
+                        </div>
+                    </div>
+
+                    <div class="hidden" id="create_subdomain_behind">
+                        <b>Behind the domain</b>
+                        <br>
+                        <div class="hover_highlight_color method_button" id="subdomain_chars_behind">
+                            <i class="fas fa-random"></i><br>Characters
+                        </div>
+                        <div class="hover_highlight_color method_button" id="subdomain_terms_behind">
+                            <i class="fas fa-book"></i><br>Words
+                        </div>
+                        <div class="hover_highlight_color method_button" id="subdomain_none_behind">
+                            <i class="fas fa-ban"></i><br>None
+                        </div>
+                    </div>
+
+                    <div class="hidden tiny_margin_top" id="subdomain_success">
+                        <p>You will create: <span id="subdomain_created_domain"></span></p>
+                        <a class="hover_highlight_color button" id="next_domain_subdomain" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Click to create this domain</a>
+                    </div>
+                </div>
+
+                <div>
+                    <img src="{{ url_for('static', filename='/external/media/without_heading/subdomain.svg') }}"></img>
+                </div>
+            </div>
+        </div>
+            
+        <div class="hidden small_margin_top" id="wrong_tld">
+            <h2>Wrong top-level domain</h2>
+            <div class="description">
+                The domain has a different top-level domain compared to the original domain, e.g., example.<span class="red">top</span>.
+            </div>
+
+            <div class="flex_center instructions_contrainer">
+                <div>
+                    <p>Choose a top-level domain from the list below:</p>
+                    <div id="create_wrong_tld">
+                        <div id="dropdown_wrapper_wrong_tld">
+                            <button id="wrong_tld_selection_button">
+                                Click to select top-level domain
+                            <div id="requirements_arrow_left" class="arrow-left inline-block"> </div>
+                            <div id="requirements_arrow_down" class="arrow-down hidden"> </div>
+                            </button>
+                            <div class="hidden" id="dropdown_content_wrong_tld">
+                                <a href="#/">top</a>
+                                <a href="#/">md</a>
+                                <a href="#/">net</a>
+                                <a href="#/">de</a>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="hidden tiny_margin_top" id="wrong_tld_success">
+                    <p>You will create: <span id="wrong_tld_created_domain"></span></p>
+                    <a class="hover_highlight_color button" id="next_domain_wrong_tld" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Click to create this domain</a>
+                </div>
+            </div>
+
+                <div>
+                    <img src="{{ url_for('static', filename='/external/media/without_heading/wrongtopleveldomain.svg') }}"></img>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hidden small_margin_top" id="homograph">
+            <h2>Homograph</h2>
+            <div class="description">
+                    The domain has a character replaced with a similar symbol, e.g., <span class="red">ẹ</span>xample.com.
+            </div>
+
+            <div class="flex_center instructions_contrainer">
+                <div>
+                    <p>Select a character to replace:</p>
+                    <div class="tiny_margin_top div_inside_hover_highlight_color small_method_button_inside" id="replace_homograph_domain_letters"></div>
+                    <div class="div_inside_hover_highlight_color small_method_button_inside" id="homograph_replacements"></div>
+                                
+                    <div class="hidden tiny_margin_top" id="replace_homograph_success">
+                        <p>You will create: <span id="replace_homograph_created_domain"></span></p>
+                        <a class="hover_highlight_color button" id="next_domain_replace_homograph" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Click to create this domain</a>
+                    </div>
+                </div>
+
+                <div>
+                    <img src="{{ url_for('static', filename='/external/media/without_heading/homographic.svg') }}"></img>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

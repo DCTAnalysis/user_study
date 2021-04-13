@@ -1,0 +1,55 @@
+{% extends "base_template_steps.html" %}
+
+{% block title %}
+Step 4 - Create Malicious Domains
+{% endblock %}
+
+{% block page_specific_stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='/css/step4.css') }}">
+{% endblock %}
+
+{% block step_specific_scripts %}
+<script src="{{ url_for('static', filename='/scripts/step4.js') }}"></script>
+{% endblock %}
+
+{% block progress_step4 %}<i class="fas fa-arrow-circle-right"></i>{% endblock %}
+
+{% block headline %}
+Step 4 - Create Malicious Domains
+{% endblock %}
+
+{% block instructions %}
+    <p>
+        In the previous experiments, you impersonated well-known domains.
+        In this experiment, we ask you to create fake domains that are well-suited for phishing without any requirements.
+        You can, for example, create domains that imitate a local bank or another company.
+    </p>
+{% endblock %}
+
+{% block counter_label %}10 domains created{% endblock %}
+
+{% block experiment %}
+    <div class="tiny_margin_top" id="domain_creation">
+        <label for="created_domain">Create domain:</label>
+        <input type="text" id="created_domain" name="created_domain">
+    </div>
+
+    <div class="hidden tiny_margin_top" id="domain_creation_label">
+        <p>You will create: <span id="created_domain_label"></span></p>
+        <a class="hover_highlight_color button" id="next_domain" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Click to create this domain</a>
+    </div>
+
+    <div class="inline-block button" id="domain_creation_requirements_wrapper">
+        Domain rules
+        <div id="requirements_arrow_left" class="arrow-left inline-block"> </div>
+        <div id="requirements_arrow_down" class="arrow-down hidden"> </div>
+        <div id="domain_creation_requirements" class="hidden">
+            <ul>
+                <li>The created domain must not contain any of the following special characters:
+                    <br>
+                    "'_\<\>&\=()[]%$?#*+/,;:
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

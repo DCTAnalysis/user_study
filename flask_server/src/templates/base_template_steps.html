@@ -1,0 +1,63 @@
+{% extends "base_template.html" %}
+
+{% block page_specific_scripts %}
+<!-- <script src="{{ url_for('static', filename='/scripts/experiment_api.js') }}"></script> -->
+    {% block step_specific_scripts%}{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <h1>{% block headline %}{% endblock %}</h1>
+
+    <div id="content_container">
+        <div id="info_text">
+            <i class="fas fa-info-circle"></i> <b>Instructions:</b>
+            {% block instructions %}{% endblock %}
+        </div>
+
+        <div class="inline-block" id="status">
+            <i class="fas fa-list-ol"></i> <span id="counter">{{counter}}</span>/{% block counter_label %}{% endblock %} 
+            {% if already_created_domains %}
+            <div id="created_arrow_left" class="arrow-left inline-block"> </div>
+            <div id="created_arrow_down" class="arrow-down hidden"> </div>
+                <div id="already_created" class="hidden">
+                    {% if already_created_domains|length > 0 %}
+                        <p>Already created:
+                            <ul>
+                                {% for domain in already_created_domains %}
+                                    <li>{{domain}}</li>
+                                {% endfor %}
+                            </ul>
+                        </p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+        </br>
+
+
+        <div class="hidden" id="server_error">
+            <p>
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="server_error_message"></span>
+                <i class="fas fa-exclamation-circle"></i>
+            </p>
+        </div>
+
+        <div class="hover_highlight_color hidden" id="start">
+            <i class="fas fa-play-circle"></i>
+            <br>
+            Start
+        </div>
+
+        <div class="hidden" id="experiment">
+            {% block experiment %}{% endblock %}
+        </div>
+
+        <div class="hidden tiny_margin_top" id="continue">
+            <p id="continue_info">Thank you for finishing this step!</p>
+            <a class="hover_highlight_color button" href="/{{next_step}}/user_id/{{user_id}}"><i class="fas fa-forward" aria-hidden="true"></i> Continue to next step</a>
+        </div>
+
+        <div class="hidden" id="user_id">{{user_id}}</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+#button_row div {
+    text-decoration: none;
+    border: 0.5px solid black;
+    font-size: 1.2em;
+    display: inline-block;
+}
+
+#domain {
+    margin-top: 1em;
+    font-weight: bold;
+    font-size: 1.3em;
+}

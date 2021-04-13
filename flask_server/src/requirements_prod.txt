@@ -1,0 +1,4 @@
+Flask==1.1.2
+pymysql==0.10.1
+user_agents==2.2.0
+gunicorn==20.0.4

@@ -1,0 +1,42 @@
+{% extends "base_template_steps.html" %}
+
+{% block title %}
+Step 5 - Select Legitimate Domains
+{% endblock %}
+
+{% block page_specific_stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='/css/step5.css') }}">
+{% endblock %}
+
+{% block step_specific_scripts %}
+<script src="{{ url_for('static', filename='/scripts/step5.js') }}"></script>
+{% endblock %}
+
+{% block progress_step5 %}<i class="fas fa-arrow-circle-right"></i>{% endblock %}
+
+{% block headline %}
+Step 5 - Select Legitimate Domains
+{% endblock %}
+
+{% block instructions %}
+    <p>
+        In this experiment, we ask you to find legitimate domains among malicious domains.
+        After you clicked on the start button, we display ten domains.
+        Please select the domains you that appear to be Legitimate by clicking on them (you can select multiple).
+        Click on the "submit selected domains" button if you think you selected all domains.
+    </p>
+{% endblock %}
+
+{% block counter_label %}10 rounds finished{% endblock %}
+
+{% block experiment %}
+    {% for domain, classification, type in domains %}
+        <div class="label hover_highlight_color {{classification}} {{type}}" href="#/">{{domain}}</div>
+    {% endfor %}
+
+    <br>
+
+    <div class="small_margin_top" id="domain_selection_label">
+        <a class="hover_highlight_color button" id="send_domains" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Submit selected domains</a>
+    </div>
+{% endblock %}

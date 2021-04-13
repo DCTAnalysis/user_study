@@ -1,0 +1,67 @@
+{% extends "base_template_steps.html" %}
+
+{% block title %}
+Step 1 - Create Maliciously Looking Domains On Your Own
+{% endblock %}
+
+{% block page_specific_stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='/css/step1.css') }}">
+{% endblock %}
+
+{% block step_specific_scripts %}
+<script src="{{ url_for('static', filename='/scripts/step1.js') }}"></script>
+{% endblock %}
+
+{% block progress_step1 %}<i class="fas fa-arrow-circle-right"></i>{% endblock %}
+
+{% block headline %}
+Step 1 - Create Maliciously Looking Domains On Your Own
+{% endblock %}
+
+{% block instructions %}
+    <p>
+    In this experiment, we ask you to think like a cyber criminal.
+    We show you ten well-known domains and ask you to create a convincing fake domain for each of it, which can trick other people into believing it is the actual domain.
+    </p>
+    <div class="flex_center" id="compensation_info">
+        <b id="compensation_info_text">We will show your created domains to other participants. If they rank them trustworthy, you will receive a bonus compensation at a later date.</b>
+    </div>
+{% endblock %}
+
+{% block counter_label %}10 domains created{% endblock %}
+
+{% block experiment %}
+    <div class="tiny_margin_top" id="domain_selection">
+        Please imitate the following domain: <span id="selected_domain"></span> using the input field below.
+    </div>
+
+    <div class="tiny_margin_top" id="domain_creation">
+        <!-- <label for="created_domain">Create domain:</label> -->
+        <input type="text" id="created_domain" name="created_domain">
+    </div>
+    
+    <div class="button inline-block hover_highlight_color" id="domain_creation_requirements_wrapper">
+        Domain rules
+        <div id="requirements_arrow_left" class="arrow-left inline-block"> </div>
+        <div id="requirements_arrow_down" class="arrow-down hidden"> </div>
+        <div id="domain_creation_requirements" class="hidden">
+            <ul>
+                <li>Must contain a domain ending, e.g., <span class="red"><b>test</b></span> is not valid and <span class="green"><b>test.com</b></span> is valid.</li>
+                <li>Cannot be blank.</li>
+                <li>Cannot be the same as the domain you want to impersonate.</li>
+                <li>Cannot start with a minus, e.g., <span class="red"><b>-test.com</b></span> is not valid and <span class="green"><b>test.com</b></span> is valid.</li>
+                <li>Cannot contain empty spaces, e.g., <span class="red"><b>te st.com</b></span> is not valid and <span class="green"><b>test.com</b></span> is valid.</li>
+                <li>Cannot contain any of the following special characters: "'_\<\>&\=()[]%$?#*+/,;:, e.g., <span class="red"><b>te&st.com</b></span> is not valid and <span class="green"><b>test.com</b></span> is valid.</li>
+                <li>Cannot end with a dot, e.g., <span class="red"><b>test.</b></span> is not valid and <span class="green"><b>test.com</b></span> is valid.</li>
+            </ul>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="hidden tiny_margin_top" id="domain_creation_label">
+        <p>You will create: <span class="tiny_margin_top" id="created_domain_label"></span></p>
+        <a class="hover_highlight_color button" id="next_domain" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Click to create this domain</a>
+    </div>
+
+{% endblock %}

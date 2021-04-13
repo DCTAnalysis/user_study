@@ -1,0 +1,5 @@
+#experiment .label {
+    text-decoration: none;
+    border: 0.5px solid black;
+    display: inline-block;
+}

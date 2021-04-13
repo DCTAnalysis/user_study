@@ -1,0 +1,93 @@
+version: '3'
+services:
+  database:
+    image: mysql
+    container_name: db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./database/backups:/backups
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+  database_test:
+    image: mysql
+    container_name: db_test
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    env_file:
+      - .env.test
+    volumes:
+      - ./database/backups:/backups
+      - ./database/init_test.sql:/docker-entrypoint-initdb.d/init_test.sql:ro
+  database_export:
+    image: db_export
+    container_name: db_export
+    build:
+      context: .
+      dockerfile: ./database_export/Dockerfile
+    volumes:
+      - ./database_export/:/database_export
+    env_file:
+      - .env
+    command: python -u database_export/export_script.py
+  nginx:
+    image: nginx:1.19.4-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+  flask_server_dev:
+    image: flask_server_dev
+    container_name: flask_server_dev
+    build:
+      context: .
+      dockerfile: ./flask_server/Dockerfile.dev
+    links:
+      - database
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      - CHECK_LAST_UNFINISHED_STEP=0
+    command: python -u app.py
+    volumes:
+      - ./flask_server/src:/project
+  flask_server_test:
+    image: flask_server_test
+    container_name: flask_server_test
+    build:
+      context: .
+      dockerfile: ./flask_server/Dockerfile.test
+    links:
+      - database_test
+    env_file:
+      - .env.test
+    command: python -m unittest discover
+  flask_server_prod:
+    image: flask_server_prod
+    container_name: flask_server_prod
+    build:
+      context: .
+      dockerfile: ./flask_server/Dockerfile.prod
+    links:
+      - database
+    expose:
+      - "5000"
+    env_file:
+      - .env
+    command: gunicorn --log-file=- --log-level debug --bind 0.0.0.0:5000 wsgi:app

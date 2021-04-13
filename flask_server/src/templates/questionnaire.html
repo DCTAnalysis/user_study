@@ -1,0 +1,377 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+Step 5 - Select Legitimate Domains
+{% endblock %}
+
+{% block page_specific_stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='/css/questionnaire.css') }}">
+{% endblock %}
+
+{% block page_specific_scripts %}
+<script src="{{ url_for('static', filename='/scripts/questionnaire.js') }}"></script>
+{% endblock %}
+
+{% block progress_questionnaire %}<i class="fas fa-arrow-circle-right"></i>{% endblock %}
+
+{% block content %}
+    <h1>Questionnaire</h1>
+
+    <div id="content_container">
+        <div id="questionnaire">
+            <p>Finally, we want to ask some questions about you and your experience to better understand your decisions.</p>
+    
+            <h2>Demographic</h2>
+        
+            <div class="question" id="age">
+                <p>What is your age?</p>
+                <input type="radio" id="age_18_25" name="age" value="18_25">
+                <label for="age_18_25">18 - 25</label>
+                <input type="radio" id="age_26_35" name="age" value="26_35">
+                <label for="age_26_35">26 - 35</label>
+                <input type="radio" id="age_36_45" name="age" value="36_45">
+                <label for="age_36_45">36 - 45</label>
+                <input type="radio" id="age_46_55" name="age" value="46_55">
+                <label for="age_46_55">46 - 55</label>
+                <input type="radio" id="age_56-65" name="age" value="56-65">
+                <label for="age_56-65">56-65</label>
+                <input type="radio" id="age_over_65" name="age" value="over_65">
+                <label for="age_over_65">Over 65</label>
+                <input type="radio" id="age_not_answer" name="age" value="not_answer">
+                <label for="age_not_answer">I prefer not to answer</label>
+            </div>
+
+            <div class="question" id="current_gender">
+                <p>What terms best express how you describe your gender identity?</p>
+                <input type="radio" id="current_gender_male" name="current_gender" value="male">
+                <label for="current_gender_male">Man</label>
+                <input type="radio" id="current_gender_female" name="current_gender" value="female">
+                <label for="current_gender_female">Woman</label>
+                <input type="radio" id="current_gender_non_binary" name="current_gender" value="non_binary">
+                <label for="current_gender_non_binary">Non-binary</label>
+                <input type="radio" id="current_gender_transgender" name="current_transgender" value="transgender">
+                <label for="current_gender_transgender">Transgender</label>
+                <input type="radio" id="current_gender_other" name="current_gender" value="other">
+                <label for="current_gender_other">None of these</label>
+                <input type="radio" id="current_gender_not_answer" name="current_gender" value="not_answer">
+                <label for="current_gender_not_answer">I prefer not to answer</label>
+            </div>
+        
+            <div class="question" id="education">
+                <p>What is the highest grade or level of school you have completed or the highest degree you have received?</p>
+                <input type="radio" id="education_less_high_school" name="education" value="less_high_school">
+                <label for="education_less_high_school">Less than high school diploma</label>
+                <br>
+                <input type="radio" id="education_high_school" name="education" value="high_school">
+                <label for="education_high_school">High school diploma or equivalent</label>
+                <br>
+                <input type="radio" id="education_associate" name="education" value="associate">
+                <label for="education_no_associate">Associate degree / Trade school</label>
+                <br>
+                <input type="radio" id="education_no_degree" name="education" value="no_degree">
+                <label for="education_no_degree">Some college, no degree</label>
+                <br>
+                <input type="radio" id="education_bachelor" name="education" value="bachelor">
+                <label for="education_bachelor">Bachelor's degree</label>
+                <br>
+                <input type="radio" id="education_master" name="education" value="master">
+                <label for="education_master">Master's degree</label>
+                <br>
+                <input type="radio" id="education_over_master" name="education" value="over_master">
+                <label for="education_over_master">Higher than master's degree (e.g., PhD)</label>
+                <br>
+                <input type="radio" id="education_not_answer" name="education" value="not_answer">
+                <label for="education_not_answer">I prefer not to answer</label>
+            </div>
+
+            <div class="question" id="origin">
+                <p>What is your country of residence?</p>
+                <div id="dropdown_wrapper_origin">
+                    <button id="origin_selection_button">
+                        <span id="selected_country">Click to select a country</span>
+                        <div id="origin_arrow_left" class="arrow-left inline-block"> </div>
+                        <div id="origin_arrow_down" class="arrow-down hidden"> </div>
+                    </button>
+                    <div class="hidden" id="dropdown_content_origin">
+                        {% for country in countries %}
+                            <a href="#/">{{country}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        
+            <h2>Computer Usage</h2>
+        
+            <div class="question" id="f4">
+                <p>I set my computer screen to automatically lock if I don't use it for a prolonged period of time.</p>
+                <input type="radio" id="f4_never" name="f4" value="never">
+                <label for="f4_never">Never</label>
+                <input type="radio" id="f4_rarely" name="f4" value="rarely">
+                <label for="f4_rarely">Rarely</label>
+                <input type="radio" id="f4_sometimes" name="f4" value="sometimes">
+                <label for="f4_sometimes">Sometimes</label>
+                <input type="radio" id="f4_often" name="f4" value="often">
+                <label for="f4_often">Often</label>
+                <input type="radio" id="f4_always" name="f4" value="always">
+                <label for="f4_always">Always</label>
+            </div>
+        
+            <div class="question" id="f6">
+                <p>I use a password/passcode to unlock my laptop or tablet.</p>
+                <input type="radio" id="f6_never" name="f6" value="never">
+                <label for="f6_never">Never</label>
+                <input type="radio" id="f6_rarely" name="f6" value="rarely">
+                <label for="f6_rarely">Rarely</label>
+                <input type="radio" id="f6_sometimes" name="f6" value="sometimes">
+                <label for="f6_sometimes">Sometimes</label>
+                <input type="radio" id="f6_often" name="f6" value="often">
+                <label for="f6_often">Often</label>
+                <input type="radio" id="f6_always" name="f6" value="always">
+                <label for="f6_always">Always</label>
+            </div>
+        
+            <div class="question" id="attention_test1">
+                <p>Please select Never from the five words.</p>
+                <input type="radio" id="attention_test1_never" name="attention_test1" value="never">
+                <label for="attention_test1_never">Never</label>
+                <input type="radio" id="attention_test1_rarely" name="attention_test1" value="rarely">
+                <label for="attention_test1_rarely">Rarely</label>
+                <input type="radio" id="attention_test1_sometimes" name="attention_test1" value="sometimes">
+                <label for="attention_test1_sometimes">Sometimes</label>
+                <input type="radio" id="attention_test1_often" name="attention_test1" value="often">
+                <label for="attention_test1_often">Often</label>
+                <input type="radio" id="attention_test1_always" name="attention_test1" value="always">
+                <label for="attention_test1_always">Always</label>
+            </div>
+        
+            <div class="question" id="f3">
+                <p>I manually lock my computer screen when I step away from it.</p>
+                <input type="radio" id="f3_never" name="f3" value="never">
+                <label for="f3_never">Never</label>
+                <input type="radio" id="f3_rarely" name="f3" value="rarely">
+                <label for="f3_rarely">Rarely</label>
+                <input type="radio" id="f3_sometimes" name="f3" value="sometimes">
+                <label for="f3_sometimes">Sometimes</label>
+                <input type="radio" id="f3_often" name="f3" value="often">
+                <label for="f3_often">Often</label>
+                <input type="radio" id="f3_always" name="f3" value="always">
+                <label for="f3_always">Always</label>
+            </div>
+        
+            <div class="question" id="f5">
+                <p>I use a PIN or passcode to unlock my mobile phone.</p>
+                <input type="radio" id="f5_never" name="f5" value="never">
+                <label for="f5_never">Never</label>
+                <input type="radio" id="f5_rarely" name="f5" value="rarely">
+                <label for="f5_rarely">Rarely</label>
+                <input type="radio" id="f5_sometimes" name="f5" value="sometimes">
+                <label for="f5_sometimes">Sometimes</label>
+                <input type="radio" id="f5_often" name="f5" value="often">
+                <label for="f5_often">Often</label>
+                <input type="radio" id="f5_always" name="f5" value="always">
+                <label for="f5_always">Always</label>
+            </div>
+        
+            <div class="question" id="f12">
+                <p>I do not change my passwords, unless I have to.</p>
+                <input type="radio" id="f12_never" name="f12" value="never">
+                <label for="f12_never">Never</label>
+                <input type="radio" id="f12_rarely" name="f12" value="rarely">
+                <label for="f12_rarely">Rarely</label>
+                <input type="radio" id="f12_sometimes" name="f12" value="sometimes">
+                <label for="f12_sometimes">Sometimes</label>
+                <input type="radio" id="f12_often" name="f12" value="often">
+                <label for="f12_often">Often</label>
+                <input type="radio" id="f12_always" name="f12" value="always">
+                <label for="f12_always">Always</label>
+            </div>
+        
+            <div class="question" id="f13">
+                <p>I use different passwords for different accounts that I have.</p>
+                <input type="radio" id="f13_never" name="f13" value="never">
+                <label for="f13_never">Never</label>
+                <input type="radio" id="f13_rarely" name="f13" value="rarely">
+                <label for="f13_rarely">Rarely</label>
+                <input type="radio" id="f13_sometimes" name="f13" value="sometimes">
+                <label for="f13_sometimes">Sometimes</label>
+                <input type="radio" id="f13_often" name="f13" value="often">
+                <label for="f13_often">Often</label>
+                <input type="radio" id="f13_always" name="f13" value="always">
+                <label for="f13_always">Always</label>
+            </div>
+        
+            <div class="question" id="f15">
+                <p>When I create a new online account, I try to use a password that goes beyond the site's minimum requirements.</p>
+                <input type="radio" id="f15_never" name="f15" value="never">
+                <label for="f15_never">Never</label>
+                <input type="radio" id="f15_rarely" name="f15" value="rarely">
+                <label for="f15_rarely">Rarely</label>
+                <input type="radio" id="f15_sometimes" name="f15" value="sometimes">
+                <label for="f15_sometimes">Sometimes</label>
+                <input type="radio" id="f15_often" name="f15" value="often">
+                <label for="f15_often">Often</label>
+                <input type="radio" id="f15_always" name="f15" value="always">
+                <label for="f15_always">Always</label>
+            </div>
+        
+            <div class="question" id="f14">
+                <p>I do not include special characters in my password if it's not required.</p>
+                <input type="radio" id="f14_never" name="f14" value="never">
+                <label for="f14_never">Never</label>
+                <input type="radio" id="f14_rarely" name="f14" value="rarely">
+                <label for="f14_rarely">Rarely</label>
+                <input type="radio" id="f14_sometimes" name="f14" value="sometimes">
+                <label for="f14_sometimes">Sometimes</label>
+                <input type="radio" id="f14_often" name="f14" value="often">
+                <label for="f14_often">Often</label>
+                <input type="radio" id="f14_always" name="f14" value="always">
+                <label for="f14_always">Always</label>
+            </div>
+        
+            <div class="question" id="f8">
+                <p>When someone sends me a link, I open it without first verifying where it goes.</p>
+                <input type="radio" id="f8_never" name="f8" value="never">
+                <label for="f8_never">Never</label>
+                <input type="radio" id="f8_rarely" name="f8" value="rarely">
+                <label for="f8_rarely">Rarely</label>
+                <input type="radio" id="f8_sometimes" name="f8" value="sometimes">
+                <label for="f8_sometimes">Sometimes</label>
+                <input type="radio" id="f8_often" name="f8" value="often">
+                <label for="f8_often">Often</label>
+                <input type="radio" id="f8_always" name="f8" value="always">
+                <label for="f8_always">Always</label>
+            </div>
+        
+            <div class="question" id="f11">
+                <p>I know what website I'm visiting based on its look and feel, rather than by looking at the URL bar.</p>
+                <input type="radio" id="f11_never" name="f11" value="never">
+                <label for="f11_never">Never</label>
+                <input type="radio" id="f11_rarely" name="f11" value="rarely">
+                <label for="f11_rarely">Rarely</label>
+                <input type="radio" id="f11_sometimes" name="f11" value="sometimes">
+                <label for="f11_sometimes">Sometimes</label>
+                <input type="radio" id="f11_often" name="f11" value="often">
+                <label for="f11_often">Often</label>
+                <input type="radio" id="f11_always" name="f11" value="always">
+                <label for="f11_always">Always</label>
+            </div>
+        
+            <div class="question" id="f16">
+                <p>I submit information to websites without first verifying that it will be sent securely (e.g., SSL, "https://", a lock icon).</p>
+                <input type="radio" id="f16_never" name="f16" value="never">
+                <label for="f16_never">Never</label>
+                <input type="radio" id="f16_rarely" name="f16" value="rarely">
+                <label for="f16_rarely">Rarely</label>
+                <input type="radio" id="f16_sometimes" name="f16" value="sometimes">
+                <label for="f16_sometimes">Sometimes</label>
+                <input type="radio" id="f16_often" name="f16" value="often">
+                <label for="f16_often">Often</label>
+                <input type="radio" id="f16_always" name="f16" value="always">
+                <label for="f16_always">Always</label>
+            </div>
+        
+            <div class="question" id="attention_test2">
+                <p>Please do not select Never from the five words.</p>
+                <input type="radio" id="attention_test2_never" name="attention_test2" value="never">
+                <label for="attention_test2_never">Never</label>
+                <input type="radio" id="attention_test2_rarely" name="attention_test2" value="rarely">
+                <label for="attention_test2_rarely">Rarely</label>
+                <input type="radio" id="attention_test2_sometimes" name="attention_test2" value="sometimes">
+                <label for="attention_test2_sometimes">Sometimes</label>
+                <input type="radio" id="attention_test2_often" name="attention_test2" value="often">
+                <label for="attention_test2_often">Often</label>
+                <input type="radio" id="attention_test2_always" name="attention_test2" value="always">
+                <label for="attention_test2_always">Always</label>
+            </div>
+        
+            <div class="question" id="f10">
+                <p>When browsing websites, I mouseover links to see where they go, before clicking them.</p>
+                <input type="radio" id="f10_never" name="f10" value="never">
+                <label for="f10_never">Never</label>
+                <input type="radio" id="f10_rarely" name="f10" value="rarely">
+                <label for="f10_rarely">Rarely</label>
+                <input type="radio" id="f10_sometimes" name="f10" value="sometimes">
+                <label for="f10_sometimes">Sometimes</label>
+                <input type="radio" id="f10_often" name="f10" value="often">
+                <label for="f10_often">Often</label>
+                <input type="radio" id="f10_always" name="f10" value="always">
+                <label for="f10_always">Always</label>
+            </div>
+        
+            <div class="question" id="f7">
+                <p>If I discover a security problem, I continue what I was doing because I assume someone else will fix it.</p>
+                <input type="radio" id="f7_never" name="f7" value="never">
+                <label for="f7_never">Never</label>
+                <input type="radio" id="f7_rarely" name="f7" value="rarely">
+                <label for="f7_rarely">Rarely</label>
+                <input type="radio" id="f7_sometimes" name="f7" value="sometimes">
+                <label for="f7_sometimes">Sometimes</label>
+                <input type="radio" id="f7_often" name="f7" value="often">
+                <label for="f7_often">Often</label>
+                <input type="radio" id="f7_always" name="f7" value="always">
+                <label for="f7_always">Always</label>
+            </div>
+        
+            <div class="question" id="f1">
+                <p>When I'm prompted about a software update, I install it right away.</p>
+                <input type="radio" id="f1_never" name="f1" value="never">
+                <label for="f1_never">Never</label>
+                <input type="radio" id="f1_rarely" name="f1" value="rarely">
+                <label for="f1_rarely">Rarely</label>
+                <input type="radio" id="f1_sometimes" name="f1" value="sometimes">
+                <label for="f1_sometimes">Sometimes</label>
+                <input type="radio" id="f1_often" name="f1" value="often">
+                <label for="f1_often">Often</label>
+                <input type="radio" id="f1_always" name="f1" value="always">
+                <label for="f1_always">Always</label>
+            </div>
+        
+            <div class="question" id="f2">
+                <p>I try to make sure that the programs I use are up-to-date.</p>
+                <input type="radio" id="f2_never" name="f2" value="never">
+                <label for="f2_never">Never</label>
+                <input type="radio" id="f2_rarely" name="f2" value="rarely">
+                <label for="f2_rarely">Rarely</label>
+                <input type="radio" id="f2_sometimes" name="f2" value="sometimes">
+                <label for="f2_sometimes">Sometimes</label>
+                <input type="radio" id="f2_often" name="f2" value="often">
+                <label for="f2_often">Often</label>
+                <input type="radio" id="f2_always" name="f2" value="always">
+                <label for="f2_always">Always</label>
+            </div>
+        
+            <div class="question" id="f9">
+                <p>I verify that my anti-virus software has been regularly updating itself.</p>
+                <input type="radio" id="f9_never" name="f9" value="never">
+                <label for="f9_never">Never</label>
+                <input type="radio" id="f9_rarely" name="f9" value="rarely">
+                <label for="f9_rarely">Rarely</label>
+                <input type="radio" id="f9_sometimes" name="f9" value="sometimes">
+                <label for="f9_sometimes">Sometimes</label>
+                <input type="radio" id="f9_often" name="f9" value="often">
+                <label for="f9_often">Often</label>
+                <input type="radio" id="f9_always" name="f9" value="always">
+                <label for="f9_always">Always</label>
+            </div>
+        </div>
+
+        <div id="server_error">
+            <p>
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="server_error_message"></span>
+                <i class="fas fa-exclamation-circle"></i>
+            </p>
+        </div>
+
+        <div id="send_questionnaire_wrapper">
+            <a class="button hover_highlight_color" id="send_questionnaire" href="#/"><i class="fas fa-forward" aria-hidden="true"></i> Submit questionnaire</a>
+        </div>
+    
+        <div class="hidden" id="continue">
+            <p id="continue_info">Thank you for answering the questions!</p>
+            <a class="hover_highlight_color button" href="/final_notes/user_id/{{user_id}}"><i class="fas fa-forward" aria-hidden="true"></i> Continue to final notes</a>
+        </div>
+    
+        <div class="hidden" id="user_id">{{user_id}}</div>
+    </div>
+{% endblock %}

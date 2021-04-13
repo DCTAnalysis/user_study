@@ -1,0 +1,10 @@
+FROM python:3.8-alpine
+WORKDIR /project
+ADD ./flask_server/src /project
+RUN apk add --no-cache mariadb-connector-c-dev ;\
+    apk add --no-cache --virtual .build-deps \
+        build-base \
+        mariadb-dev ;\
+    pip install mysqlclient;\
+    apk del .build-deps
+RUN pip install -r requirements_prod.txt

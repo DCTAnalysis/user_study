@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/external/fontawesome/css/all.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+    {% block page_specific_stylesheet %}{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/index.css') }}">
+    <script src="{{ url_for('static', filename='/external/jquery-3.4.1.js') }}"></script>
+    {% block page_specific_scripts %}{% endblock %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="{{ url_for('static', filename='/scripts/experiment_api.js') }}"></script>
+</head>
+
+<body>
+    <div id="content">
+        <div id="progress_bar">
+            <div class="label">{% block progress_intro %}{% endblock %} Intro</div>
+            <div class="label">{% block progress_consent %}{% endblock %} Consent</div>
+            <div class="label">{% block progress_step1 %}{% endblock %} Step 1</div>
+            <div class="label">{% block progress_step2 %}{% endblock %} Step 2</div>
+            <div class="label">{% block progress_step3 %}{% endblock %} Step 3</div>
+            <div class="label">{% block progress_step4 %}{% endblock %} Step 4</div>
+            <div class="label">{% block progress_step5 %}{% endblock %} Step 5</div>
+            <div class="label">{% block progress_questionnaire %}{% endblock %} Questionnaire</div>
+        </div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
