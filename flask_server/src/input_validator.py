@@ -92,6 +92,23 @@ class InputValidator:
 
         return {"result": False, "current_step": ""}
 
+    def check_log_time(self, user_id, time_type, time):
+        valid_time_types = ["experiment_start_time", "experiment_end_time",\
+                            "step1_start_time", "step1_end_time",\
+                            "step2_start_time", "step2_end_time",\
+                            "step3_start_time", "step3_end_time",\
+                            "step4_start_time", "step4_end_time",\
+                            "step5_start_time", "step5_end_time",\
+                            "questionnaire_start_time", "questionnaire_end_time"]
+        if self._is_user_id_valid(user_id) is False:
+            return {"result": False, "message": "Invalid user ID!"}
+        if time_type not in valid_time_types:
+            return {"result": False, "message": "Invalid time type!"}
+        if self._is_valid_integer(time) is False:
+            return {"result": False, "message": "Invalid current time!"}
+
+        return {"result": True, "message": ""}
+
     def check_input_set_step_finished(self, user_id, step_id):
         if self._is_user_id_valid(user_id) is False:
             return {"result": False, "message": "Invalid user ID!"}

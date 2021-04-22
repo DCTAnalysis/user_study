@@ -12,6 +12,20 @@ CREATE TABLE test_persons (test_person_id INT AUTO_INCREMENT PRIMARY KEY,
                            finished_step4 BOOLEAN,
                            finished_step5 BOOLEAN,
                            finished_questionnaire BOOLEAN,
+                           experiment_start_time VARCHAR(15),
+                           experiment_end_time VARCHAR(15),
+                           step1_start_time VARCHAR(15),
+                           step1_end_time VARCHAR(15),
+                           step2_start_time VARCHAR(15),
+                           step2_end_time VARCHAR(15),
+                           step3_start_time VARCHAR(15),
+                           step3_end_time VARCHAR(15),
+                           step4_start_time VARCHAR(15),
+                           step4_end_time VARCHAR(15),
+                           step5_start_time VARCHAR(15),
+                           step5_end_time VARCHAR(15),
+                           questionnaire_start_time VARCHAR(15),
+                           questionnaire_end_time VARCHAR(15),
                            feedback VARCHAR(500));
 CREATE TABLE test_domains (test_domain_id INT AUTO_INCREMENT PRIMARY KEY,
                            domain VARCHAR(250),
@@ -148,16 +162,22 @@ CREATE TABLE questionnaire (questionnaire_id INT AUTO_INCREMENT PRIMARY KEY,
 
 /* add test person for unittests */
 INSERT INTO test_persons (user_id, completion_code, os, browser, version, is_mobile, finished_step1,
-                          finished_step2, finished_step3, finished_step4, finished_step5, finished_questionnaire, feedback)
+                          finished_step2, finished_step3, finished_step4, finished_step5, finished_questionnaire,\
+                          experiment_start_time, experiment_end_time, step1_start_time, step1_end_time,\
+                          step2_start_time, step2_end_time, step3_start_time, step3_end_time,\
+                          step4_start_time, step4_end_time, step5_start_time, step5_end_time,\
+                          questionnaire_start_time, questionnaire_end_time, feedback)
 VALUES
-("aaa10022-38b0-4a1a-95af-776f35aa2b8f", "2d79c66c-200d-4939-8014-27040bc90881", "windows", "firefox", "80", false, false, false, false, false, false, false, ""),
-("b6ab0f21-b755-4855-b16e-e528dd0798ad", "3d955d7e-6c2c-4ff6-a3fe-941e290bded8", "windows", "firefox", "80", false, false, false, false, false, false, false, ""),
-("a206adfb-1ff8-4c73-bdf0-fdc8ddc9df39", "8e5314e0-8020-4bca-987a-97d27bf2ec3d", "windows", "firefox", "80", false, true, true, true, true, true, true, ""),
-("81eb9ab6-4d0b-4f7d-a8e8-5d0e03d94053", "b47517d7-2317-44ac-b523-7b2b6b7bb6d6", "windows", "firefox", "80", false, true, true, true, true, true, true, ""),
-("afbc57ab-b3f5-44be-8629-0bc31036f7eb", "6947e44c-20f1-4fcc-8bba-890cb0e8b34c", "windows", "firefox", "80", false, true, true, true, true, true, true, ""),
-("baaf422c-f6ee-4432-9d54-3a3420839191", "ee8f44aa-43b4-41f4-b59b-1b3b7085af1d", "windows", "firefox", "80", false, true, true, true, true, true, true, ""),
-("71333569-7985-4f8a-80c6-17cf00c0d6df", "55bdf99f-b54a-43d5-9ce9-aa69e6f37bbb", "windows", "firefox", "80", false, true, true, true, true, true, true, ""),
-("f32d1320-5f4b-42f0-b111-91fdbc4180c3", "ffe7833a-ce9b-4daa-bbdc-070d7575f471", "windows", "firefox", "80", false, true, true, true, true, true, true, "");
+("aaa10022-38b0-4a1a-95af-776f35aa2b8f", "2d79c66c-200d-4939-8014-27040bc90881", "windows", "firefox", "80", false, false, false, false, false, false, false, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", ""),
+("b6ab0f21-b755-4855-b16e-e528dd0798ad", "3d955d7e-6c2c-4ff6-a3fe-941e290bded8", "windows", "firefox", "80", false, false, false, false, false, false, false, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", ""),
+("761b1a34-201d-4596-a4cb-aa706496b412", "9fc8b034-dda6-4c27-8490-347b0fca8b10", "windows", "firefox", "80", false, false, false, false, false, false, false, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", ""),
+("83db4d0d-dd45-4faa-9ebb-af56daf4d40e", "1bc2d415-f468-4c82-bea8-a8d99869883e", "windows", "firefox", "80", false, true, true, true, true, true, true, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", ""),
+("a206adfb-1ff8-4c73-bdf0-fdc8ddc9df39", "8e5314e0-8020-4bca-987a-97d27bf2ec3d", "windows", "firefox", "80", false, true, true, true, true, true, true, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", ""),
+("81eb9ab6-4d0b-4f7d-a8e8-5d0e03d94053", "b47517d7-2317-44ac-b523-7b2b6b7bb6d6", "windows", "firefox", "80", false, true, true, true, true, true, true, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", ""),
+("afbc57ab-b3f5-44be-8629-0bc31036f7eb", "6947e44c-20f1-4fcc-8bba-890cb0e8b34c", "windows", "firefox", "80", false, true, true, true, true, true, true, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", ""),
+("baaf422c-f6ee-4432-9d54-3a3420839191", "ee8f44aa-43b4-41f4-b59b-1b3b7085af1d", "windows", "firefox", "80", false, true, true, true, true, true, true, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", ""),
+("71333569-7985-4f8a-80c6-17cf00c0d6df", "55bdf99f-b54a-43d5-9ce9-aa69e6f37bbb", "windows", "firefox", "80", false, true, true, true, true, true, true, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", ""),
+("f32d1320-5f4b-42f0-b111-91fdbc4180c3", "ffe7833a-ce9b-4daa-bbdc-070d7575f471", "windows", "firefox", "80", false, true, true, true, true, true, true, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "");
 
 /* add test domains */
 INSERT INTO test_domains (domain, classification)

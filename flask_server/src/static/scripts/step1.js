@@ -2,6 +2,8 @@ $(document).ready(function() {
 	var user_id = $("div#user_id").text();
 	var last_click;
 
+    logTime(user_id, "step1_start_time");
+
     // selection of reference domain
     var get_ref_domain = function(user_id) {
         $.ajax({

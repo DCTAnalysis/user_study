@@ -1,6 +1,8 @@
 $(document).ready(function() {
 	var user_id = $("div#user_id").text();
 
+    logTime(user_id, "experiment_start_time");
+
 	// check if user is using a mobile device and display continue link only if not
     $.ajax({
         "type": "GET",

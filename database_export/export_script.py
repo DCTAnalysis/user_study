@@ -46,6 +46,38 @@ def evaluate_attention_questions():
 
     return user_id_attention_mapping
 
+def evaluate_execution_times():
+    sql = "SELECT user_id, experiment_start_time, experiment_end_time,\
+                           step1_start_time, step1_end_time,\
+                           step2_start_time, step2_end_time,\
+                           step3_start_time, step3_end_time,\
+                           step4_start_time, step4_end_time,\
+                           step5_start_time, step5_end_time,\
+                           questionnaire_start_time, questionnaire_end_time\
+           FROM test_persons;"
+    csv_data = execute_query(sql)
+    user_id_execution_times_mapping = {}
+    for line in csv_data:
+        splitted_line = line.split(",")
+        user_id = splitted_line[0]
+        experiment_time = int(splitted_line[2]) - int(splitted_line[1])
+        step1_time = int(splitted_line[4]) - int(splitted_line[3])
+        step2_time = int(splitted_line[6]) - int(splitted_line[5])
+        step3_time = int(splitted_line[8]) - int(splitted_line[7])
+        step4_time = int(splitted_line[10]) - int(splitted_line[9])
+        step5_time = int(splitted_line[12]) - int(splitted_line[11])
+        questionnaire_time = int(splitted_line[14]) - int(splitted_line[13])
+
+        user_id_execution_times_mapping[user_id] = str(experiment_time) + "," +\
+                                                   str(step1_time) + "," +\
+                                                   str(step2_time) + "," +\
+                                                   str(step3_time) + "," +\
+                                                   str(step4_time) + "," +\
+                                                   str(step5_time) + "," +\
+                                                   str(questionnaire_time)
+
+    return user_id_execution_times_mapping
+
 def export_test_persons():
     statistics_query = "SELECT <operator>(step3_step1_created_domains.<field>)\
                         FROM step3_step1_created_domains, step1, created_domains\
@@ -75,8 +107,15 @@ def export_test_persons():
         else:
             csv_data_copy.append(elem + ",none")
     csv_data = csv_data_copy
+    user_id_execution_times_mapping = evaluate_execution_times()
+    csv_data_copy = []
+    for elem in csv_data:
+        user_id = elem[:elem.index(",")]
+        if user_id in user_id_execution_times_mapping:
+            csv_data_copy.append(elem + "," + user_id_execution_times_mapping[user_id])
+    csv_data = csv_data_copy
 
-    save_to_csv("test_persons", "user_id,completion_code,os,browser,version,is_mobile,finished_step1,finished_step2,finished_step3,finished_step4,finished_step5,finished_questionnaire,number_of_received_ratings,min_rating,max_rating,avg_rating,stddev_rating,min_rating_time,max_rating_time,avg_rating_time,stddev_rating_time,feedback,attention_success", csv_data)
+    save_to_csv("test_persons", "user_id,completion_code,os,browser,version,is_mobile,finished_step1,finished_step2,finished_step3,finished_step4,finished_step5,finished_questionnaire,number_of_received_ratings,min_rating,max_rating,avg_rating,stddev_rating,min_rating_time,max_rating_time,avg_rating_time,stddev_rating_time,feedback,attention_success,experiment_time,step1_time,step2_time,step3_time,step4_time,step5_time,questionnaire_time", csv_data)
 
 def export_created_domains():
     statistics_query = "SELECT <operator>(step3_step1_created_domains.<field>)\

@@ -2,6 +2,8 @@ $(document).ready(function() {
     var user_id = $("div#user_id").text();
     var last_click;
 
+    logTime(user_id, "step5_start_time");
+
     var send_result = function(user_id, selected_domains, elapsed_time, counter) {
         $.ajax({
             "type": "POST",

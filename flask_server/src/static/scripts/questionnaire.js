@@ -2,6 +2,8 @@ $(document).ready(function() {
     var user_id = $("div#user_id").text();
     var error = false;
 
+    logTime(user_id, "questionnaire_start_time");
+
     $.ajax({
         "type": "GET",
         "url": "/is_step_finished/user_id/" + user_id + "/step_id/questionnaire",
@@ -63,6 +65,7 @@ $(document).ready(function() {
                         $("#server_error_message").html("You already answered the questionnaire");
                         $("#server_error").css("display", "block");
                     } else {
+                        logTime(user_id, "questionnaire_end_time");
                         // set continue link visible
                         $("#continue").css("display", "block");
                         // set questions invisible

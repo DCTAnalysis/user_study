@@ -6,6 +6,8 @@ $(document).ready(function() {
     var domain = "";
     var counter = 0;
 
+    logTime(user_id, "step3_start_time");
+
     var getNextDomain = function() {
         $.ajax({
             "type": "GET",

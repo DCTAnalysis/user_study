@@ -1,6 +1,8 @@
 $(document).ready(function() {
     var user_id = $("div#user_id").text();
 
+    logTime(user_id, "experiment_end_time");
+
     var send_feedback = function(user_id) {
         feedback = $("#feedback").val();
 

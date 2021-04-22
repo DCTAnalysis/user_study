@@ -43,6 +43,24 @@ def is_step_finished(user_id, step_id):
     else:
         return jsonify({"is_step_finished": True, "server_error": False})
 
+@app.route("/log_time", methods=["POST"])
+def log_time():
+    user_id = request.form["user_id"]
+    time_type = request.form["type"]
+    time = request.form["time"]
+
+    input_validation = input_validator.check_log_time(user_id, time_type, time)
+    if input_validation["result"] is False:
+        return jsonify({
+            "server_error": True,
+            "server_error_message": input_validation["message"]
+        })
+    # check if time has already been logged
+    data = db.get_time(user_id, time_type)
+    if data[0] == "0":
+        db.log_time(user_id, time_type, time)
+
+    return jsonify({"server_error": False})
 
 @app.route("/set_step_finished", methods=["POST"])
 def set_step_finished():
@@ -505,7 +523,7 @@ def final_notes(user_id):
     if data[7] == 1 and data[8] == 1 and data[9] == 1 and data[
             10] == 1 and data[11] == 1 and data[12] == 1:
         completion_code = data[2]
-    has_provided_feedback = data[13] != ""
+    has_provided_feedback = data[27] != ""
 
     return render_template("final_notes.html", user_id=user_id, finished_step1=str(data[7]), finished_step2=str(data[8]),\
                            finished_step3=str(data[9]), finished_step4=str(data[10]), finished_step5=str(data[11]),\

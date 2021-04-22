@@ -20,6 +20,21 @@ var is_step_finished = function(user_id, step_id) {
     });
 }
 
+var logTime = function(user_id, type) {
+    current_time = (new Date()).getTime();
+    $.ajax({
+        "type": "POST",
+        "url": "/log_time",
+        "data": {"user_id": user_id, "type": type, "time": current_time},
+        "success": function(data) {
+            if (data["server_error"] == true) {
+                $("#server_error_message").html(data["server_error_message"]);
+                $("#server_error").css("display", "block");
+            }
+        }
+    });
+}
+
 var startExperiment = function() {
     // remove start button div
     $("#start").remove();
@@ -34,6 +49,9 @@ var startExperiment = function() {
 var finish = function(user_id, step_id) {
     $("#experiment").remove();
     $("#start").remove();
+    // log time to calculate how long it took to finish the step
+    logTime(user_id, step_id + "_end_time");
+
     // send message to server that step has been finished
     $.ajax({
         "type": "POST",

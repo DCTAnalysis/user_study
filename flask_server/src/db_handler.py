@@ -75,6 +75,15 @@ class DbHandler:
         
         return self.select_one_item(sql)
 
+    def get_time(self, user_id, time_type):
+        sql = "SELECT " + time_type + " FROM test_persons WHERE user_id='" + user_id + "';"
+
+        return self.select_one_item(sql)
+
+    def log_time(self, user_id, time_type, time):
+        sql = "UPDATE test_persons SET " + time_type + " = " + str(time) + " WHERE user_id='" + user_id + "';"
+        self.update_data(sql)
+
     def set_step_as_finished(self, user_id, column_name):
         sql = "UPDATE test_persons SET " + column_name + " = True WHERE user_id='" + user_id + "';"
         self.update_data(sql)
@@ -86,10 +95,14 @@ class DbHandler:
 
     def create_test_person(self, user_id, completion_code, browser, version, os, is_mobile):
         sql = "INSERT INTO test_persons (user_id, completion_code, os, browser, version, is_mobile, finished_step1,\
-                                         finished_step2, finished_step3, finished_step4, finished_step5, finished_questionnaire, feedback)\
+                                         finished_step2, finished_step3, finished_step4, finished_step5, finished_questionnaire,\
+                                         experiment_start_time, experiment_end_time, step1_start_time, step1_end_time,\
+                                         step2_start_time, step2_end_time, step3_start_time, step3_end_time,\
+                                         step4_start_time, step4_end_time, step5_start_time, step5_end_time,\
+                                         questionnaire_start_time, questionnaire_end_time, feedback)\
                VALUES\
                     ('" + user_id + "', '" + completion_code + "','" + os + "','" + browser + "','" + version + "'," + str(is_mobile) +\
-                      ", False, False, False, False, False, False, '');"
+                      ", False, False, False, False, False, False, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '');"
         self.insert_data(sql)
 
     def get_legitimate_domains(self, number_of_domains):

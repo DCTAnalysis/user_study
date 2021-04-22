@@ -86,8 +86,9 @@ $(document).ready(function() {
     $("#subdomain_back").val("");
     $("#subdomain_sld").val("");
 
-    is_step_finished(user_id, "step2");
+    logTime(user_id, "step2_start_time");
 
+    is_step_finished(user_id, "step2");
 
     // order the squatting technique buttons randomly
     var squatting_technique_buttons = $(".illustration");

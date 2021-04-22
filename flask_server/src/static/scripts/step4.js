@@ -2,6 +2,8 @@ $(document).ready(function() {
 	var user_id = $("div#user_id").text();
 	var last_click;
 
+    logTime(user_id, "step4_start_time");
+
     var checkForSpecialCharacters = function(created_domain) {
         specialChars = ["_", "<", ">", "&", "'", "\"", "=", "(", ")", "[", "]", "%", "$", "?", "#", "*", "+", "/", ",", ";", ":"];
         for (var i = 0; i < specialChars.length; i++) {
