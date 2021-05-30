@@ -184,7 +184,8 @@ class DbHandler:
 
     def get_step1_domains_for_step5(self, user_id, number_of_domains):
         sql = "SELECT domain FROM created_domains\
-               WHERE created_domain_id NOT IN (SELECT created_domain_id FROM step1\
+               WHERE domain != 'no_participation' AND\
+                     created_domain_id NOT IN (SELECT created_domain_id FROM step1\
                                                WHERE test_person_id = (SELECT test_person_id FROM test_persons WHERE user_id='" + user_id + "'))\
                ORDER BY RAND() LIMIT " + str(number_of_domains) + ";"
 
@@ -224,6 +225,7 @@ class DbHandler:
 
     def get_step1_domain(self, user_id, rating_threshold):
         sql = "SELECT * FROM created_domains WHERE\
+                   domain != 'no_participation' AND\
                    number_of_ratings < '" + str(rating_threshold) + "' AND\
                    created_domain_id NOT IN (SELECT created_domain_id FROM step1 WHERE\
                                              test_person_id = (SELECT test_person_id FROM test_persons WHERE user_id='" + user_id + "')) AND\
@@ -234,6 +236,7 @@ class DbHandler:
 
         if step1_domain is None:
             sql = "SELECT * FROM created_domains WHERE\
+                       domain != 'no_participation' AND\
                        created_domain_id NOT IN (SELECT created_domain_id FROM step1 WHERE\
                                                  test_person_id = (SELECT test_person_id FROM test_persons WHERE user_id='" + user_id + "')) AND\
                        created_domain_id NOT IN (SELECT created_domain_id FROM step3_step1_created_domains\

@@ -36,7 +36,8 @@ $(document).ready(function() {
     var handle_created_domain = function() {
         created_domain = $("#created_domain").val();
         ref_domain = $("#selected_domain").html();
-        if (created_domain != "" &&
+        if (created_domain == "I do not want to participate" ||
+            (created_domain != "" &&
             created_domain.indexOf(" ") == -1 &&
             created_domain.indexOf(".") > -1 &&
             created_domain.indexOf("..") == -1 &&
@@ -45,7 +46,7 @@ $(document).ready(function() {
             created_domain.charAt(0) != "-" &&
             created_domain.charAt(created_domain.length - 1) != "-" &&
             created_domain != ref_domain &&
-            checkForSpecialCharacters(created_domain) == false) {
+            checkForSpecialCharacters(created_domain) == false)) {
             $("#domain_creation_label").css("display", "inline-block");
             $("#created_domain_label").html($("#created_domain").val());
         } else {
@@ -70,6 +71,9 @@ $(document).ready(function() {
                      "domain_position": domain_position},
             "success": function(data) {
                 if (data["server_error"] == true) {
+                    if ("no_participation" in data && data["no_participation"] == true) {
+                        $("#experiment").remove();
+                    }
                     $("#server_error_message").html(data["server_error_message"]);
                     $("#server_error").css("display", "block");
                 } else {            
@@ -79,6 +83,13 @@ $(document).ready(function() {
             }
         });
     }
+
+    $('#already_created ul li').each(function() {
+        if ($(this).text() === "no_participation") {
+            $("#start").remove();
+            $("#experiment").remove();
+        }
+    });
 
     is_step_finished(user_id, "step1");
 

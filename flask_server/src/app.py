@@ -157,6 +157,17 @@ def step1_result():
     elapsed_time = request.form["elapsed_time"]
     domain_position = request.form["domain_position"]
 
+    if created_domain == "I do not want to participate":
+        is_domain_created = db.is_domain_created("no_participation")
+        if is_domain_created is None:
+            db.insert_into_created_domains(ref_domain, "no_participation")
+        db.insert_into_step1(user_id, "no_participation", elapsed_time, domain_position)
+        return jsonify({
+            "server_error": True,
+            "no_participation": True,
+            "server_error_message": "You submitted the string 'I do not want to participate', which indicates that you do not want to create domains. Therefore, you cannot take part in the survey. You will not get any compensation. We appreciate your willingness to participate. You can leave the website now."
+        })
+
     input_validation = input_validator.check_input_step1_result(
         user_id, ref_domain, created_domain, elapsed_time, domain_position)
     if input_validation["result"] is False:
