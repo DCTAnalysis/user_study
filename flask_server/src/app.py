@@ -332,9 +332,15 @@ def step3_result():
             "server_error_message": input_validation["message"]
         })
 
-    db.insert_into_step3(user_id, rated_domain, type, elapsed_time, rating, domain_position)
+    inserted_domains_count = db.check_user_id_domain_position_inserted(user_id, type, domain_position)[0]
+    if inserted_domains_count == 0:
+        db.insert_into_step3(user_id, rated_domain, type, elapsed_time, rating, domain_position)
+        return jsonify({"finished_step": True, "server_error": False})
 
-    return jsonify({"finished_step": True, "server_error": False})
+    return jsonify({
+            "server_error": True,
+            "server_error_message": "You submitted the results too fast. Be a little bit more patient!"
+        })
 
 
 # request handling for step 4
@@ -443,11 +449,19 @@ def step5_result():
             "server_error_message": input_validation["message"]
         })
 
-    db.insert_into_step5(user_id, selected_domains, elapsed_time, counter)
-    return jsonify({"inserted": True, "server_error": False})
+    # count the number of domains which have already been inserted for this user_id and counter
+    # a non-zero value means the user has already submitted the results for this step before
+    inserted_domains_count = db.check_user_id_counter_inserted(user_id, counter)[0]
+    if inserted_domains_count == 0:
+        db.insert_into_step5(user_id, selected_domains, elapsed_time, counter)
+        return jsonify({"inserted": True, "server_error": False})
+
+    return jsonify({
+            "server_error": True,
+            "server_error_message": "You submitted the results too fast. Be a little bit more patient!"
+        })
 
 # request handling for questionnaire
-
 
 @app.route("/questionnaire/user_id/<uuid:user_id>")
 def questionnaire(user_id):

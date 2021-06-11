@@ -275,6 +275,19 @@ class DbHandler:
 
         return self.select_one_item(sql)
 
+    def check_user_id_domain_position_inserted(self, user_id, type, domain_position):
+        sql = "SELECT COUNT(*) as count FROM <db_table>\
+               WHERE test_person_id=(SELECT test_person_id FROM test_persons WHERE user_id='" + user_id + "') AND\
+                     domain_position=" + domain_position + ";"
+        if type == "step1":
+            sql = sql.replace("<db_table>", "step3_step1_created_domains")
+        elif type == "ref_domain":
+            sql = sql.replace("<db_table>", "step3_ref_domains")
+        elif type == "phishing_domain":
+            sql = sql.replace("<db_table>", "step3_phishing_domains")
+
+        return self.select_one_item(sql)
+
     def insert_into_step3(self, user_id, rated_domain, type, elapsed_time, rating, domain_position):
         if type == "step1":
             # insert data into step3 table
@@ -313,6 +326,13 @@ class DbHandler:
         sql = "SELECT domain FROM test_domains WHERE classification=1 ORDER BY RAND() LIMIT " + str(number_of_domains) + ";"
 
         return self.select_multiple_items(sql)
+
+    def check_user_id_counter_inserted(self, user_id, counter):
+        sql = "SELECT COUNT(*) as count FROM step5_domains\
+               WHERE test_person_id=(SELECT test_person_id FROM test_persons WHERE user_id='" + user_id + "') AND\
+                     counter=" + counter + ";"
+
+        return self.select_one_item(sql)
 
     def insert_into_step5(self, user_id, selected_domains, elapsed_time, counter):
         step5_domain_query = "(SELECT step5_domain_id FROM step5_domains WHERE\
