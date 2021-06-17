@@ -25,6 +25,19 @@ class DbHandler:
             if conn is not None:
                 conn.close()
 
+    def insert_data_in_transaction(self, sqls):
+        conn = None
+        try:
+            conn = self.open_connection()
+            with conn.cursor() as cursor:
+                for sql in sqls:
+                    cursor.execute(sql)
+                conn.commit()
+                cursor.close()
+        finally:
+            if conn is not None:
+                conn.close()
+
     def update_data(self, sql):
         conn = None
         try:
@@ -338,14 +351,15 @@ class DbHandler:
         step5_domain_query = "(SELECT step5_domain_id FROM step5_domains WHERE\
                                step5_domains.test_person_id=(SELECT test_person_id FROM test_persons WHERE user_id='" + user_id + "') AND\
                                step5_domains.domain_position=<position> AND\
-                               step5_domains.counter=" + counter +")"
+                               step5_domains.counter=" + counter +" AND\
+                               step5_domains.selected='<selected>')"
 
         position = 1
         for selected_domain in selected_domains.split(";"):
             splitted_selection = selected_domain.split(",")
 
             # create new entry in step5_domains
-            sql = "INSERT INTO step5_domains(test_person_id, selected, domain_position, counter) VALUES\
+            prep_sql = "INSERT INTO step5_domains(test_person_id, selected, domain_position, counter) VALUES\
                    ((SELECT test_person_id FROM test_persons WHERE user_id='" + user_id + "')," +\
                    "'" + splitted_selection[1] + "'," +\
                    str(position) + "," +\
@@ -355,19 +369,19 @@ class DbHandler:
             # insert domain in step5 domain tables depending on type
             if splitted_selection[3] == "step1_domain":
                 sql = "INSERT INTO step5_step1_created_domains(step5_domain_id, created_domain_id) VALUES\
-                       (" + step5_domain_query.replace("<position>", str(position)) + ",\
+                       (" + step5_domain_query.replace("<position>", str(position)).replace("<selected>", splitted_selection[1]) + ",\
                         (SELECT created_domain_id FROM created_domains WHERE domain ='" + splitted_selection[0] + "'));"
-                self.insert_data(sql)
+                self.insert_data_in_transaction([prep_sql, sql])
             elif splitted_selection[3] == "legitimate_domain":
                 sql = "INSERT INTO step5_legitimate_domains(step5_domain_id, test_domain_id) VALUES\
-                       (" + step5_domain_query.replace("<position>", str(position)) + ",\
+                       (" + step5_domain_query.replace("<position>", str(position)).replace("<selected>", splitted_selection[1]) + ",\
                         (SELECT test_domain_id FROM test_domains WHERE domain ='" + splitted_selection[0] + "'));"
-                self.insert_data(sql)
+                self.insert_data_in_transaction([prep_sql, sql])
             elif splitted_selection[3] == "phishing_domain":
                 sql = "INSERT INTO step5_phishing_domains(step5_domain_id, test_domain_id) VALUES\
-                       (" + step5_domain_query.replace("<position>", str(position)) + ",\
+                       (" + step5_domain_query.replace("<position>", str(position)).replace("<selected>", splitted_selection[1]) + ",\
                         (SELECT test_domain_id FROM test_domains WHERE domain ='" + splitted_selection[0] + "'));"
-                self.insert_data(sql)
+                self.insert_data_in_transaction([prep_sql, sql])
 
             position += 1
 
